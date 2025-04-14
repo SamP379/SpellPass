@@ -5,7 +5,7 @@ import wonderwords
 DICTIONARY_ENDPOINT = "https://api.dictionaryapi.dev/api/v2/entries/en/"
 
 
-def pronounce_word(word : str):
+def pronounce(word : str):
     """Uses pyttsx3 text-to-speech to pronounce a given word"""
     engine = pyttsx3.init()
     engine.say(word)
@@ -13,10 +13,13 @@ def pronounce_word(word : str):
 
 
 def get_random_words(amount : int) -> list:
-    """Returns a list of random words."""
+    """Returns a dictionary of random words."""
     wonderword = wonderwords.RandomWord() 
     random_words = wonderword.random_words(amount, word_min_length = 3, word_max_length = 14)
-    return random_words
+    words = {}
+    for word in random_words:
+        words[word] = 0
+    return words
 
 
 def get_definition(word : str) -> str|None:
