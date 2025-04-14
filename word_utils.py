@@ -19,7 +19,7 @@ def get_random_words(amount : int) -> list:
     return random_words
 
 
-def get_definition(word : str):
+def get_definition(word : str) -> str|None:
     """Returns the definition of a given word or None if not found"""
     try:
         endpoint = DICTIONARY_ENDPOINT + word
