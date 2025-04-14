@@ -1,5 +1,4 @@
 import os
-import time
 import word_utils
 import storage_utils
 
@@ -26,15 +25,22 @@ class WonderWord:
     def clear_screen(self):
         os.system("cls")
 
+    
+    def display_word(self, word : str):
+        self.clear_screen()
+        print(word.title())
+        word_utils.pronounce(word)
+        self.clear_screen()
 
-    def make_guess(self, word : str):
-        self.user_guess = input("\nEnter word: ").strip().lower()
+
+    def handle_guess(self, word : str):
+        user_guess = input("Enter word: ").strip().lower()
         user_definition = input("Enter definition: ")
         if self.user_guess == word:
             self.words[word] += 1
 
 
-    def word_result(self, word : str):
+    def handle_results(self, word : str):
         print(f"\nWord: {word.title()}")
         word_definition = word_utils.get_definition(word)
         if word_definition is not None:
@@ -44,9 +50,6 @@ class WonderWord:
 
     def main_loop(self):
         for word in self.words:
-            print(word.title())
-            word_utils.pronounce(word)
-            self.clear_screen()
+            self.display_word(word)
             self.handle_guess(word)
-            self.word_result(word)
-            self.clear_screen()
+            self.handle_results(word)
