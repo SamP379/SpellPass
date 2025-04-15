@@ -52,3 +52,4 @@ class WonderWord:
             self.display_word(word)
             self.handle_guess(word)
             self.handle_results(word)
+        storage_utils.save_words(self.words)   
