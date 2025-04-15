@@ -6,12 +6,6 @@ import word_utils
 WORDS_FILE_PATH = "words.json"
 
 
-def get_word():
-    import random
-    words = ("revolver", "gun", "rifle", "eastwood", "horse", "ranch", "books")
-    return random.choice(words)
-
-
 def adjust_words(words : dict, words_amount : int) -> dict:
     difference = abs(len(words) - words_amount)
     if len(words) < words_amount:
