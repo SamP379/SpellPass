@@ -6,9 +6,10 @@ import word_utils
 WORDS_FILE_PATH = "words.json"
 
 
-def adjust_words(words : dict, words_amount : int) -> dict:
-    difference = abs(len(words) - words_amount)
-    if len(words) < words_amount:
+def adjust_words(words : dict, amount : int) -> dict:
+    """Adjusts a dictionary of words to be of length 'amount'"""
+    difference = abs(len(words) - amount)
+    if len(words) < amount:
         for i in range(difference):
             new_word = word_utils.get_random_word()
             words[new_word] = 0
@@ -19,12 +20,12 @@ def adjust_words(words : dict, words_amount : int) -> dict:
     return words
 
 
-def load_words(words_amount : int) -> dict|None:
+def load_words(amount : int) -> dict|None:
     try:
         with open(WORDS_FILE_PATH, mode = "r") as file:
             words = json.load(file)
-            if len(words) != words_amount:
-                words = adjust_words(words, words_amount)
+            if len(words) != amount:
+                words = adjust_words(words, amount)
             return words  
     except Exception as error:
         print(f"An error occured: {error}")
