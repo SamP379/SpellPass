@@ -3,6 +3,7 @@ import requests
 import wonderwords 
 
 DICTIONARY_ENDPOINT = "https://api.dictionaryapi.dev/api/v2/entries/en/"
+WONDERWORD = wonderwords.RandomWord() 
 
 
 def pronounce(word : str):
@@ -12,10 +13,14 @@ def pronounce(word : str):
     engine.runAndWait()
 
 
-def get_random_words(amount : int) -> list:
+def get_random_word() -> str:
+    random_word = WONDERWORD.word(word_min_length = 3, word_max_length = 14)
+    return random_word
+
+
+def get_random_words(amount : int) -> dict:
     """Returns a dictionary of random words."""
-    wonderword = wonderwords.RandomWord() 
-    random_words = wonderword.random_words(amount, word_min_length = 3, word_max_length = 14)
+    random_words = WONDERWORD.random_words(amount, word_min_length = 3, word_max_length = 14)
     words = {}
     for word in random_words:
         words[word] = 0
