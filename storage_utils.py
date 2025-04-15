@@ -10,7 +10,7 @@ def adjust_words(words : dict, words_amount : int) -> dict:
     difference = abs(len(words) - words_amount)
     if len(words) < words_amount:
         for i in range(difference):
-            new_word = word_utils.get_word() # TODO Implement get_word()
+            new_word = word_utils.get_random_word()
             words[new_word] = 0
     else:
         words_list = list(words)
