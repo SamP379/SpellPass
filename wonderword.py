@@ -10,8 +10,7 @@ class WonderWord:
     def __init__(self, words_amount : int):
         self.words_amount = words_amount
         self.words = self.get_words()
-        self.clear_screen()
-
+        
 
     def get_words(self) -> dict:
         if os.path.exists(WonderWord.WORDS_FILE_PATH):
@@ -36,7 +35,7 @@ class WonderWord:
     def handle_guess(self, word : str):
         user_guess = input("Enter word: ").strip().lower()
         user_definition = input("Enter definition: ")
-        if self.user_guess == word:
+        if user_guess == word:
             self.words[word] += 1
 
 
