@@ -14,7 +14,7 @@ class WonderWord:
 
     def get_words(self) -> dict:
         if os.path.exists(WonderWord.WORDS_FILE_PATH):
-            words = storage_utils.load_words()
+            words = storage_utils.load_words(self.words_amount)
             return words
         else:
             words = word_utils.get_random_words(self.words_amount)
