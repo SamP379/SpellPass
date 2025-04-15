@@ -47,7 +47,7 @@ def get_definition(word : str) -> str|None:
         endpoint = DICTIONARY_ENDPOINT + word
         response = requests.get(url = endpoint)
         definition = response.json()[0]["meanings"][0]["definitions"][0]["definition"]
-        #definition = sanitize_definition(definition)
+        definition = sanitize_definition(definition)
         return definition
     except Exception as error:
         print(f"An error occured: {error}")
