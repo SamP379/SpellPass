@@ -4,10 +4,11 @@ import ai_utils
 import wonderwords 
 
 
-DICTIONARY_ENDPOINT = "https://api.dictionaryapi.dev/api/v2/entries/en/"
-WONDERWORD = wonderwords.RandomWord() 
 MAX_DEFINITION_LENGTH = 13
-SHORTEN_DEFINTION_PROMPT = "Shorten this definition so that it's less than 13 words: "
+WONDERWORD = wonderwords.RandomWord()
+DICTIONARY_ENDPOINT = "https://api.dictionaryapi.dev/api/v2/entries/en/"
+LLAMA_DEFINITION_PROMPT = """Shorten this definition so that it's less than 13 words, 
+                           and do not give any other kind of text except the definition: """
 
 
 def pronounce(word : str):
@@ -18,6 +19,7 @@ def pronounce(word : str):
 
 
 def get_random_word() -> str:
+    """Returns a random word"""
     random_word = WONDERWORD.word(word_min_length = 3, word_max_length = 14)
     return random_word
 
@@ -32,17 +34,17 @@ def get_random_words(amount : int) -> dict:
 
 
 def sanitize_definition(word_definition : str) -> str:
+    """Sanitizes the definition of a word"""
     if len(word_definition.split()) > MAX_DEFINITION_LENGTH:
-        prompt = SHORTEN_DEFINTION_PROMPT + word_definition
-        short_definition = ai_utils.get_llama_response(prompt) 
-    if short_definition is not None:
-        return short_definition
-    else:
-        return word_definition
+        llama_prompt = LLAMA_DEFINITION_PROMPT + word_definition
+        short_definition = ai_utils.get_llama_response(llama_prompt) 
+        if short_definition is not None:
+            return short_definition
+    return word_definition
 
 
 def get_definition(word : str) -> str|None:
-    """Returns the definition of a given word or None if not found"""
+    """Returns the definition of a given word"""
     try:
         endpoint = DICTIONARY_ENDPOINT + word
         response = requests.get(url = endpoint)
