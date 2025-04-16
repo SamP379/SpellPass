@@ -1,4 +1,3 @@
-import os
 import json
 import word_utils
 
@@ -21,6 +20,7 @@ def adjust_words(words : dict, amount : int) -> dict:
 
 
 def load_words(amount : int) -> dict|None:
+    """Loads the words from the words.json file"""
     try:
         with open(WORDS_FILE_PATH, mode = "r") as file:
             words = json.load(file)
@@ -33,6 +33,7 @@ def load_words(amount : int) -> dict|None:
 
 
 def remove_completed_words(words : dict) -> dict:
+    """Removes words in the dictionary with a value greater than or equal to 3"""
     for word in list(words):
         if words[word] >= 3:
             words.pop(word)
@@ -40,6 +41,7 @@ def remove_completed_words(words : dict) -> dict:
 
 
 def save_words(words : dict):
+    """Saves a dictionary of words to words.json"""
     words = remove_completed_words(words)
     try:
         with open(WORDS_FILE_PATH, mode = "w") as file:
